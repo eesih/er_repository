@@ -128,7 +128,6 @@ public class Activity implements Serializable {
         }
         return true;
     }
-
     @Override
     public String toString() {
         return "com.er.business.employee.entity.Activity[ id=" + id + " ]";
