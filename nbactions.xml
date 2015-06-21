@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-test profile</actionName>
+            <displayName>test profile</displayName>
+            <goals>
+                <goal>test</goal>
+            </goals>
+            <activatedProfiles>
+                <activatedProfile>test</activatedProfile>
+            </activatedProfiles>
+        </action>
+        <action>
+            <actionName>CUSTOM-rest-test</actionName>
+            <displayName>rest-test</displayName>
+            <goals>
+                <goal>test</goal>
+            </goals>
+            <activatedProfiles>
+                <activatedProfile>rest-test</activatedProfile>
+            </activatedProfiles>
+        </action>
+        <action>
+            <actionName>CUSTOM-rest</actionName>
+            <displayName>rest</displayName>
+            <goals>
+                <goal>test</goal>
+            </goals>
+            <activatedProfiles>
+                <activatedProfile>rest-test</activatedProfile>
+            </activatedProfiles>
+        </action>
+    </actions>
