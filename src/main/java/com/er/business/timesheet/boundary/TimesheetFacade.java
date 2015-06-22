@@ -9,12 +9,17 @@ package com.er.business.timesheet.boundary;
 import com.er.application.util.PerformanceInterceptor;
 import com.er.business.user.entity.User;
 import com.er.business.timesheet.entity.Timesheet;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.year;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
+import static com.er.application.util.EmployeeResourceUtil.*;
 
 /**
  *
@@ -30,30 +35,26 @@ public class TimesheetFacade {
     @Inject
     Event<Timesheet> timesheetEvent;
     
-    public List<Timesheet> getTimesheets()  {
+    public List<Timesheet> getAllTimesheets()  {
         return em.createNamedQuery("Timesheet.findAll", Timesheet.class).getResultList();
     }
     
-    public List<Timesheet> getTimesheets(User employee)  {
+    public List<Timesheet> getEmployeesAllTimesheets(User employee)  {
         return em.createNamedQuery("Timesheet.findByEmp", Timesheet.class)
                 .setParameter("emp", employee)
                 .getResultList();
     }
     
-    public List<Timesheet> getTimesheetsMonthly(User employee, Integer month, Integer year)  {
-        return em.createNamedQuery("Timesheet.findByEmpMonthYear", Timesheet.class)
+    public List<Timesheet> getEmployeesTimesheetsMonthly(User employee, Date date)  {
+        return em.createNamedQuery("Timesheet.findByEmpDate", Timesheet.class)
                 .setParameter("emp", employee)
-                .setParameter("month", month)
-                .setParameter("year", year)
+                .setParameter("startDate", getMonthsFirstDate(date))
+                .setParameter("endDate", getMonthsLastDate(date))
                 .getResultList();
     }
-    public List<Timesheet> getTimesheetsWeekly(User employee, Integer week, Integer month, Integer year)  {
-        return em.createNamedQuery("Timesheet.findByEmpWeekMonthYear", Timesheet.class)
-                .setParameter("emp", employee)
-                .setParameter("week", week)
-                .setParameter("month", month)
-                .setParameter("year", year)
-                .getResultList();
+    
+    public List<Timesheet> getEmployeesTimesheetsFromThisMonth(User employee)  {
+        return getEmployeesTimesheetsMonthly(employee, new Date());
     }
     
     public Timesheet addOrUpdateTimesheet(Timesheet timesheet)  {
@@ -61,5 +62,4 @@ public class TimesheetFacade {
         return em.merge(timesheet);
     }
 
- 
 }

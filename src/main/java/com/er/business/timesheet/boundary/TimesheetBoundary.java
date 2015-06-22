@@ -34,7 +34,7 @@ public class TimesheetBoundary {
     
     @GET
     public List<Timesheet> timesheets() {
-        return timesheetFacade.getTimesheets();
+        return timesheetFacade.getAllTimesheets();
     }
     
     @POST

@@ -6,10 +6,8 @@
 
 package com.er.business.client.entity;
 
-import com.er.business.timesheet.entity.WeekHours;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,8 +39,6 @@ public class Activity implements Serializable {
        
     private Double multiplier;
     
-    @Embedded
-    private WeekHours weekHours;
     
     @PrePersist @PreUpdate
     public void setMultiplierDefaultValue()    {
@@ -54,11 +50,10 @@ public class Activity implements Serializable {
     public Activity() {
     }
 
-    public Activity(String name, String description, BigDecimal price, WeekHours weekHours) {
+    public Activity(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.weekHours = weekHours;
     }
     
     public Long getId() {
@@ -106,14 +101,6 @@ public class Activity implements Serializable {
 
     public void setMultiplier(Double multiplier) {
         this.multiplier = multiplier;
-    }
-
-    public WeekHours getWeekHours() {
-        return weekHours;
-    }
-
-    public void setWeekHours(WeekHours weekHours) {
-        this.weekHours = weekHours;
     }
     
     @Override

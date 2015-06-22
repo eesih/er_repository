@@ -14,24 +14,22 @@ import com.er.business.user.boundary.EmployeeFacade;
 import com.er.business.user.entity.User;
 import com.er.business.user.entity.UserRoles;
 import com.er.business.timesheet.entity.Timesheet;
-import com.er.business.timesheet.entity.WeekHours;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.naming.Context;
 import javax.naming.NamingException;
 import org.junit.Assert;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
-
+import static com.er.application.util.EmployeeResourceUtil.*;
 /**
  *
  * @author eerosihvonen
  */
 public class TimesheetFacadeITTest extends TestBase {
     
-    private final static Integer YEAR = 2014;
-    private final static Integer MONTH = 10;
-    private final static Integer WEEK = 40;
+    private final static Date now = new Date();
 
     @Test
     public void testTimesheetFacade() throws Exception {
@@ -42,7 +40,7 @@ public class TimesheetFacadeITTest extends TestBase {
 
         TimesheetFacade timesheetFacade = (TimesheetFacade) ctx.lookup("java:global/classes/TimesheetFacade");
 
-        Assert.assertEquals(0, timesheetFacade.getTimesheets().size());
+        Assert.assertEquals(0, timesheetFacade.getAllTimesheets().size());
         User employee = getEmployee(ctx);
         ClientFacade clientFacade = getClientFacade(ctx);
         Client client = getClient(clientFacade);
@@ -50,16 +48,15 @@ public class TimesheetFacadeITTest extends TestBase {
         client.addProject(project);
         client = clientFacade.addOrUpdateClient(client);
         
-        WeekHours weekHours = new WeekHours(new Double("7.5"), null, null, null, null);
-        Activity activity = getActivity(clientFacade, weekHours);
+        Activity activity = getActivity(clientFacade);
         project.addActivity(activity);
         project = clientFacade.addOrUpdateProject(project);
         
-        
-        Timesheet timesheet = timesheetFacade.addOrUpdateTimesheet(getTimesheet(WEEK, MONTH, YEAR, employee, client, project, activity));
+        Double hours = 7.5;
+        Timesheet timesheet = timesheetFacade.addOrUpdateTimesheet(getTimesheet(now, employee, client, project, activity, hours));
         assertNotNull(timesheet);
         
-        List<Timesheet> timesheets = timesheetFacade.getTimesheets(employee);
+        List<Timesheet> timesheets = timesheetFacade.getEmployeesAllTimesheets(employee);
         Assert.assertEquals(1, timesheets.size());
         timesheet = timesheets.get(0);
         client = timesheet.getClient();
@@ -76,45 +73,21 @@ public class TimesheetFacadeITTest extends TestBase {
         
         activity = activites.get(0);
         assertNotNull(activity);
-        
-        
-        timesheets = timesheetFacade.getTimesheets(null);
+              
+        timesheets = timesheetFacade.getEmployeesAllTimesheets(null);
         Assert.assertEquals(0, timesheets.size());
         
-        timesheets = timesheetFacade.getTimesheetsMonthly(employee, MONTH, YEAR);        
+        timesheets = timesheetFacade.getEmployeesTimesheetsFromThisMonth(employee);
         Assert.assertEquals(1, timesheets.size());
-        
-        timesheets = timesheetFacade.getTimesheetsMonthly(employee, MONTH, 2015);        
+           
+        timesheets = timesheetFacade.getEmployeesTimesheetsMonthly(employee, getDate(2000, 1, 1));
         Assert.assertEquals(0, timesheets.size());
-        
-        timesheets = timesheetFacade.getTimesheetsWeekly(employee, WEEK, MONTH, YEAR);
-        Assert.assertEquals(1, timesheets.size());
-        
-        timesheets = timesheetFacade.getTimesheetsWeekly(employee, WEEK, MONTH, 2015);
-        Assert.assertEquals(0, timesheets.size());
-        
-        weekHours = new WeekHours(new Double("7.5"), new Double("7.5"), null, null, null);
-        activity.setWeekHours(weekHours);
-        
+              
         activity = clientFacade.addOrUpdateActivity(activity);
         Assert.assertEquals(1, project.getActivites().size());
-        
-        weekHours = new WeekHours(null, null, new Double("7.5"), new Double("2.5"), null);
-        activity = getActivity(clientFacade, weekHours);
-        project.addActivity(activity);
-        project = clientFacade.addOrUpdateProject(project);
-        Assert.assertEquals(2, project.getActivites().size());
-        
-        project = getProject(clientFacade);
-        weekHours = new WeekHours(null, null, null, new Double("5.5"), new Double("7.5"));
-        activity = getActivity(clientFacade, weekHours);
-        project.addActivity(activity);
-        project = clientFacade.addOrUpdateProject(project);
-        Assert.assertEquals(1, project.getActivites().size());
-        
-        timesheetFacade.addOrUpdateTimesheet(new Timesheet(WEEK, MONTH, YEAR, employee, client, project, activity));
-        Assert.assertEquals(2, timesheetFacade.getTimesheets(employee).size());
-        
+                
+        timesheetFacade.addOrUpdateTimesheet(new Timesheet(now, employee, client, project, activity, 4.5));
+        Assert.assertEquals(2, timesheetFacade.getEmployeesAllTimesheets(employee).size());
 
     }
 
@@ -138,12 +111,12 @@ public class TimesheetFacadeITTest extends TestBase {
         return clientFacade;
     }
 
-    private Timesheet getTimesheet(Integer week, Integer month, Integer year, User employee, Client client, Project project, Activity activity) {
-        return new Timesheet(week, month, year, employee, client, project, activity);
+    private Timesheet getTimesheet(Date date, User employee, Client client, Project project, Activity activity, Double hours) {
+        return new Timesheet(date, employee, client, project, activity, hours);
     }
 
-    private Activity getActivity(ClientFacade clientFacade, WeekHours weekHours) {    
-        return clientFacade.addOrUpdateActivity(new Activity("Implementation", "description: Implementation of ovi stote system", new BigDecimal("70"), weekHours));
+    private Activity getActivity(ClientFacade clientFacade) {    
+        return clientFacade.addOrUpdateActivity(new Activity("Implementation", "description: Implementation of ovi stote system", new BigDecimal("70")));
     }
 
 }
