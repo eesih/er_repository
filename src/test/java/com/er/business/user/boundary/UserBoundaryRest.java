@@ -43,7 +43,7 @@ public class UserBoundaryRest {
     public void createEmployee() throws JAXBException {
         // POSTs an User
         
-        User employee = new User("Rest emp", UserRoles.CONSULTANT);
+        User employee = new User("Rest emp", UserRoles.EMPLOYEE);
         
         Response response = client.target(uri).request().post(Entity.entity(employee,
                 MediaType.APPLICATION_JSON

@@ -32,14 +32,14 @@ public class UserFacadeITTest extends TestBase  {
         
         UserFacade employeeFacade = (UserFacade) ctx.lookup("java:global/classes/UserFacade");
 
-        User employee = employeeFacade.addOrModifyEmployee(new User("Test", UserRoles.ARCHITECT));      
+        User employee = employeeFacade.addOrModifyEmployee(new User("Test", UserRoles.PARTNER));      
         assertNotNull(employee);       
         assertEquals(1, employeeFacade.getUsers().size());
         
         User employeeById = employeeFacade.getUser(employee.getId());
         assertEquals(employee, employeeById);
         
-        User employee2 = employeeFacade.addOrModifyEmployee(new User("Test2", UserRoles.DEVELOPER));      
+        User employee2 = employeeFacade.addOrModifyEmployee(new User("Test2", UserRoles.EMPLOYEE));      
         assertNotNull(employee2);
         assertEquals(2, employeeFacade.getUsers().size());
         

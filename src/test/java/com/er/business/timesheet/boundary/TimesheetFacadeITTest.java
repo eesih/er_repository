@@ -94,7 +94,7 @@ public class TimesheetFacadeITTest extends TestBase {
     private User getEmployee(Context ctx) throws Exception {
         assertNotNull(ctx.lookup("java:global/classes/UserFacade"));
         UserFacade employeeFacade = (UserFacade) ctx.lookup("java:global/classes/UserFacade");
-        return employeeFacade.addOrModifyEmployee(new User("Jack Coder", UserRoles.ARCHITECT));
+        return employeeFacade.addOrModifyEmployee(new User("Jack Coder", UserRoles.PARTNER));
     }
     
     private Project getProject(ClientFacade clientFacade) throws Exception   {
