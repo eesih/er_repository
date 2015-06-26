@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.er.business.employee.boundary;
+package com.er.business.user.boundary;
 
-import com.er.business.user.boundary.EmployeeFacade;
+import com.er.business.user.boundary.UserFacade;
 import com.er.business.TestBase;
 import com.er.business.user.entity.User;
 import com.er.business.user.entity.UserRoles;
@@ -19,36 +19,36 @@ import org.junit.Test;
  *
  * @author eerosihvonen
  */
-public class EmployeeFacadeITTest extends TestBase  {
+public class UserFacadeITTest extends TestBase  {
    
 
     @Test
-    public void testEmployeeFacade() throws Exception {
+    public void testUserFacade() throws Exception {
 
         Context ctx = ec.getContext();
         // Check JNDI dependencies (EJBs) 
-        assertNotNull(ctx.lookup("java:global/classes/EmployeeFacade"));
+        assertNotNull(ctx.lookup("java:global/classes/UserFacade"));
         assertNotNull(ctx.lookup("java:global/classes/ClientFacade"));        
         
-        EmployeeFacade employeeFacade = (EmployeeFacade) ctx.lookup("java:global/classes/EmployeeFacade");
+        UserFacade employeeFacade = (UserFacade) ctx.lookup("java:global/classes/UserFacade");
 
         User employee = employeeFacade.addOrModifyEmployee(new User("Test", UserRoles.ARCHITECT));      
         assertNotNull(employee);       
-        assertEquals(1, employeeFacade.getEmployees().size());
+        assertEquals(1, employeeFacade.getUsers().size());
         
-        User employeeById = employeeFacade.getEmployee(employee.getId());
+        User employeeById = employeeFacade.getUser(employee.getId());
         assertEquals(employee, employeeById);
         
         User employee2 = employeeFacade.addOrModifyEmployee(new User("Test2", UserRoles.DEVELOPER));      
         assertNotNull(employee2);
-        assertEquals(2, employeeFacade.getEmployees().size());
+        assertEquals(2, employeeFacade.getUsers().size());
         
-        User employeeById2 = employeeFacade.getEmployee(employee2.getId());
+        User employeeById2 = employeeFacade.getUser(employee2.getId());
         assertEquals(employee2, employeeById2);
         
         User employee3 = employeeFacade.addOrModifyEmployee(employee);
         assertEquals(employee, employee3);
-        assertEquals(2, employeeFacade.getEmployees().size());  
+        assertEquals(2, employeeFacade.getUsers().size());  
     }
 
 }

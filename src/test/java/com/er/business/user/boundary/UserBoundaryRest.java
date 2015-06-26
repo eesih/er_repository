@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.er.business.employee.boundary;
+package com.er.business.user.boundary;
 
 import com.er.business.user.entity.User;
 import com.er.business.user.entity.UserRoles;
@@ -22,10 +22,10 @@ import org.junit.Test;
  *
  * @author eerosihvonen
  */
-public class EmployeeBoundaryRest {
+public class UserBoundaryRest {
 
-    private static URI uri = UriBuilder.fromUri("http://localhost/employeeResources/resources/employees/save").port(8080).build();
-    private static URI uri_get = UriBuilder.fromUri("http://localhost/employeeResources/resources/employees").port(8080).build();
+    private static URI uri = UriBuilder.fromUri("http://localhost/employeeResources/resources/users/save").port(8080).build();
+    private static URI uri_get = UriBuilder.fromUri("http://localhost/employeeResources/resources/users").port(8080).build();
 
     private static Client client = ClientBuilder.newClient();
 

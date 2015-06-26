@@ -20,18 +20,17 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 @Interceptors(PerformanceInterceptor.class)
-public class EmployeeFacade {
+public class UserFacade {
     
     @Inject
     private EntityManager em;
 
-    public List<User> getEmployees()    {
-        return em.createNamedQuery("Employee.findAll", User.class).getResultList();
+    public List<User> getUsers()    {
+        return em.createNamedQuery("User.findAll", User.class).getResultList();
     }
     
-    public User getEmployee(Long id)    {
-        return em.createNamedQuery("Employee.findById", User.class)
-                .setParameter("id", id).getSingleResult();
+    public User getUser(Long id)    {
+        return em.find(User.class, id);
     }
        
     public User addOrModifyEmployee(User employee) {

@@ -10,7 +10,7 @@ import com.er.business.client.boundary.ClientFacade;
 import com.er.business.client.entity.Activity;
 import com.er.business.client.entity.Client;
 import com.er.business.client.entity.Project;
-import com.er.business.user.boundary.EmployeeFacade;
+import com.er.business.user.boundary.UserFacade;
 import com.er.business.user.entity.User;
 import com.er.business.user.entity.UserRoles;
 import com.er.business.timesheet.entity.Timesheet;
@@ -92,8 +92,8 @@ public class TimesheetFacadeITTest extends TestBase {
     }
 
     private User getEmployee(Context ctx) throws Exception {
-        assertNotNull(ctx.lookup("java:global/classes/EmployeeFacade"));
-        EmployeeFacade employeeFacade = (EmployeeFacade) ctx.lookup("java:global/classes/EmployeeFacade");
+        assertNotNull(ctx.lookup("java:global/classes/UserFacade"));
+        UserFacade employeeFacade = (UserFacade) ctx.lookup("java:global/classes/UserFacade");
         return employeeFacade.addOrModifyEmployee(new User("Jack Coder", UserRoles.ARCHITECT));
     }
     

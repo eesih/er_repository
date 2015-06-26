@@ -40,16 +40,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author eerosihvonen
  */
 @Entity
-@Table(name = "EMPLOYEE")
+@Table(name = "ER_USER")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
-    @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id"),
-    @NamedQuery(name = "Employee.findBySalary", query = "SELECT e FROM Employee e WHERE e.salary = :salary")})
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

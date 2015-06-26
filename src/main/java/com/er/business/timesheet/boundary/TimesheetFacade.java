@@ -9,9 +9,6 @@ package com.er.business.timesheet.boundary;
 import com.er.application.util.PerformanceInterceptor;
 import com.er.business.user.entity.User;
 import com.er.business.timesheet.entity.Timesheet;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.year;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -39,15 +36,15 @@ public class TimesheetFacade {
         return em.createNamedQuery("Timesheet.findAll", Timesheet.class).getResultList();
     }
     
-    public List<Timesheet> getEmployeesAllTimesheets(User employee)  {
+    public List<Timesheet> getEmployeesAllTimesheets(User user)  {
         return em.createNamedQuery("Timesheet.findByEmp", Timesheet.class)
-                .setParameter("emp", employee)
+                .setParameter("user", user)
                 .getResultList();
     }
     
-    public List<Timesheet> getEmployeesTimesheetsMonthly(User employee, Date date)  {
+    public List<Timesheet> getEmployeesTimesheetsMonthly(User user, Date date)  {
         return em.createNamedQuery("Timesheet.findByEmpDate", Timesheet.class)
-                .setParameter("emp", employee)
+                .setParameter("user", user)
                 .setParameter("startDate", getMonthsFirstDate(date))
                 .setParameter("endDate", getMonthsLastDate(date))
                 .getResultList();

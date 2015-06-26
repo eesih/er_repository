@@ -23,33 +23,33 @@ import javax.ws.rs.core.Response;
  *
  * @author eerosihvonen
  */
-@Path("employees")
+@Path("users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class EmployeeBoundary {
+public class UserBoundary {
     
     @Inject
-    EmployeeFacade employeeFacade;
+    UserFacade userFacade;
     
     @Inject
     Logger log;
    
     @GET
     public List<User> employees()  {
-        return employeeFacade.getEmployees();
+        return userFacade.getUsers();
     }    
     
     @GET
-    @Path("employee")
-    public User employee(@PathParam("id") Long id)  {
-        return employeeFacade.getEmployee(id);
+    @Path("user")
+    public User user(@PathParam("id") Long id)  {
+        return userFacade.getUser(id);
     }    
     
     @POST
     @Path("save")
-    public Response saveEmployee(User employee)    {
-        employee = employeeFacade.addOrModifyEmployee(employee);
-        return Response.ok(employee).build();
+    public Response saveUser(User user)    {
+        user = userFacade.addOrModifyEmployee(user);
+        return Response.ok(user).build();
     }
     
 }

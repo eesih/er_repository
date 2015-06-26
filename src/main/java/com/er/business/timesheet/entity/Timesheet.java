@@ -33,8 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Timesheet.findAll", query = "SELECT t FROM Timesheet t"),
-    @NamedQuery(name = "Timesheet.findByEmp", query = "SELECT t FROM Timesheet t WHERE t.employee = :emp"),
-    @NamedQuery(name = "Timesheet.findByEmpDate", query = "SELECT t FROM Timesheet t WHERE t.employee = :emp AND t.date >= :startDate AND t.date <= :endDate")
+    @NamedQuery(name = "Timesheet.findByEmp", query = "SELECT t FROM Timesheet t WHERE t.user = :user"),
+    @NamedQuery(name = "Timesheet.findByEmpDate", query = "SELECT t FROM Timesheet t WHERE t.user = :user AND t.date >= :startDate AND t.date <= :endDate")
 })
 public class Timesheet implements Serializable {
 
@@ -50,8 +50,8 @@ public class Timesheet implements Serializable {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "EMPLOYEE_ID")
-    private User employee;
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @NotNull
     @ManyToOne
@@ -73,20 +73,20 @@ public class Timesheet implements Serializable {
     public Timesheet() {
     }
     
-    public Timesheet(User employee,
+    public Timesheet(User user,
             Client client, Project project, Activity activity, Double hours) {
         this.date = new Date();
-        this.employee = employee;
+        this.user = user;
         this.client = client;
         this.project = project;
         this.activity = activity;
         this.hours = hours;
     }
 
-    public Timesheet(Date date, User employee,
+    public Timesheet(Date date, User user,
             Client client, Project project, Activity activity, Double hours) {
         this.date = date;
-        this.employee = employee;
+        this.user = user;
         this.client = client;
         this.project = project;
         this.activity = activity;
@@ -109,12 +109,12 @@ public class Timesheet implements Serializable {
         this.date = date;
     }
 
-    public User getEmployee() {
-        return employee;
+    public User getUser() {
+        return user;
     }
 
-    public void setEmployee(User employee) {
-        this.employee = employee;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Client getClient() {
