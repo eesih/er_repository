@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "ER_USER")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")    
 })
 public class User implements Serializable {
 
@@ -74,7 +74,7 @@ public class User implements Serializable {
     private Date added;
 
     @Enumerated(EnumType.STRING)
-    private UserRoles role;
+    private UserRoles userRole;
 
     @Column(name = "SALARY")
     private BigDecimal salary;
@@ -90,17 +90,14 @@ public class User implements Serializable {
 
     @Transient
     private Integer age;
-    /*
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "employee")
-    //@JoinColumn(name = "employee_id")
-    private List<Timesheet> timesheets;*/
+   
 
     public User() {
     }
 
     public User(String name, UserRoles role) {
         this.name = name;
-        this.role = role;
+        this.userRole = role;
     }
 
     @PrePersist @PreUpdate
@@ -160,12 +157,12 @@ public class User implements Serializable {
         this.added = added;
     }
 
-    public UserRoles getRole() {
-        return role;
+    public UserRoles getUserRole() {
+        return userRole;
     }
 
-    public void setRole(UserRoles role) {
-        this.role = role;
+    public void setUserRole(UserRoles role) {
+        this.userRole = role;
     }
 
     public BigDecimal getSalary() {
@@ -232,17 +229,6 @@ public class User implements Serializable {
         this.age = age;
     }
 
-    /*
-    public List<Timesheet> getTimesheets() {
-        return timesheets;
-    }
-
-    public void setTimesheets(List<Timesheet> timesheets) {
-        this.timesheets = timesheets;
-    }
-    
-    */
-
     @Override
     public int hashCode() {
         int hash = 5;
@@ -265,10 +251,7 @@ public class User implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" + "id=" + id + ", version=" + version + ", name=" + name + ", modified=" + modified + ", added=" + added + ", role=" + role + ", salary=" + salary + ", address=" + address + ", postcode=" + postcode + ", phonenumber=" + phonenumber + ", email=" + email + ", birthday=" + birthday + ", age=" + age + '}';
-    }
+   
     
     
    

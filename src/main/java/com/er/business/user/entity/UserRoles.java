@@ -13,9 +13,11 @@ package com.er.business.user.entity;
 
 public enum UserRoles {
     
-    ARCHITECT("architect"), DEVELOPER("developer"), PROJECT_MANAGER("manager"), CONSULTANT("consultant");
+    ADMIN("admin"), 
+    PARTNER("partner"), 
+    EMPLOYEE("employee");
     
-    private String role;
+    private final String role;
     
     private UserRoles(String role)  {
         this.role = role;
