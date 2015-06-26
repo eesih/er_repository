@@ -1,0 +1,8 @@
+.classpath
+.project
+.settings/
+target/
+db-populate-rest.sh
+nb-configuration.xml
+nbactions.xml
+.DS_Store
