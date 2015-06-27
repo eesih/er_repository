@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import org.eclipse.persistence.exceptions.JAXBException;
+import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
@@ -42,25 +43,27 @@ public class UserBoundaryRest {
     @Test
     public void createEmployee() throws JAXBException {
         // POSTs an User
-        
-        User employee = new User("Rest emp", UserRoles.EMPLOYEE);
+        String name = "Rest test";
+        UserRoles role = UserRoles.EMPLOYEE;
+        User employee = new User(name, role);
         
         Response response = client.target(uri).request().post(Entity.entity(employee,
                 MediaType.APPLICATION_JSON
         ));
         
         assertEquals(Response.Status.OK.toString(), response.getStatusInfo().toString());
+    
+        User user = response.readEntity(User.class);
+        Assert.assertNotNull(user);
+        Assert.assertNotNull(user.getId());
+        //assertEquals(role, user.getUserRole());
+        assertEquals(name, user.getName());
+        System.out.println(user);
+        
+        Response response1 = client.target(uri_get).path("/{id}")
+			.resolveTemplate("id", user.getId()).request().delete();
+        
+        assertEquals(Response.Status.OK.toString(), response1.getStatusInfo().toString());
     }
     
-    @Test
-    public void getEmployees() throws JAXBException {
-        // GETs an User
-        
-        
-        Response response = client.target(uri_get).request().get();
-        
-        System.out.println("EERO " + response.getEntity());    
-        
-    }
-
 }

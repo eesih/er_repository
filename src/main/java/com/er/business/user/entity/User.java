@@ -161,8 +161,8 @@ public class User implements Serializable {
         return userRole;
     }
 
-    public void setUserRole(UserRoles role) {
-        this.userRole = role;
+    public void setUserRole(UserRoles userRole) {
+        this.userRole = userRole;
     }
 
     public BigDecimal getSalary() {
@@ -251,11 +251,11 @@ public class User implements Serializable {
         return true;
     }
 
-   
-    
-    
-   
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", version=" + version + ", name=" + name + ", modified=" + modified + ", added=" + added + ", userRole=" + userRole + ", salary=" + salary + ", address=" + address + ", postcode=" + postcode + ", phonenumber=" + phonenumber + ", email=" + email + ", birthday=" + birthday + ", age=" + age + '}';
+    }
 
-    
+   
 
 }

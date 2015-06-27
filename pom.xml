@@ -5,6 +5,7 @@
     <artifactId>employeeResource</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <name>employeeResource</name>
     
     <repositories>
         <repository>
@@ -39,31 +40,19 @@
         <dependency>
             <groupId>org.glassfish.main.extras</groupId>
             <artifactId>glassfish-embedded-all</artifactId>
-            <version>4.1</version>
+            <version>${version.org.glassfish.main.extras}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
-            <version>2.5.2</version>
+            <version>${version.org.eclipse.persistence}</version>
             <scope>provided</scope>
         </dependency>      
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${version.org.mysql.connector}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.11.1.1</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -71,22 +60,37 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>   
+       
+        <!-- TEST dependencies -->
+        
         <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>       
+            <groupId>org.glassfish</groupId>
+            <artifactId>maven-embedded-glassfish-plugin</artifactId>
+            <version>${version.org.glassfish.embedded}</version>
+        </dependency>  
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
             <version>${version.org.jboss.arquillian.container}</version>
             <scope>test</scope>
+        </dependency>   
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <scope>test</scope>
+        </dependency>     
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${version.junit}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>maven-embedded-glassfish-plugin</artifactId>
-            <version>3.1.1</version>
-        </dependency>        
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>${verison.org.apache.derby}</version>
+            <scope>test</scope>
+        </dependency>                                
  
     </dependencies>
  
@@ -200,10 +204,13 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <failOnMissingWebXml>false</failOnMissingWebXml>
+        <version.org.glassfish.main.extras>4.1</version.org.glassfish.main.extras>
         <version.org.mysql.connector>5.1.32</version.org.mysql.connector>
-        <version.junit>4.10</version.junit>
+        <version.org.eclipse.persistence>2.5.2</version.org.eclipse.persistence>
+        <version.junit>4.11</version.junit>
         <version.org.jboss.arquillian.junit>1.1.5.Final</version.org.jboss.arquillian.junit>
         <version.org.glassfish.embedded>3.1.1</version.org.glassfish.embedded>
         <version.org.jboss.arquillian.container>1.0.0.CR4</version.org.jboss.arquillian.container>
+        <verison.org.apache.derby>10.11.1.1</verison.org.apache.derby>
     </properties>
 </project>

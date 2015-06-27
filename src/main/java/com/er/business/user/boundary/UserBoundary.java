@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -50,6 +51,14 @@ public class UserBoundary {
     public Response saveUser(User user)    {
         user = userFacade.addOrModifyEmployee(user);
         return Response.ok(user).build();
+    }
+    
+    @DELETE
+    @Path("/{id}")
+    public Response deleteUserForReal(final @PathParam("id") Long id)    {
+        System.out.println("DELETE REST");
+        userFacade.deleteUser(id);
+        return Response.ok().build();
     }
     
 }

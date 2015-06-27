@@ -36,4 +36,8 @@ public class UserFacade {
     public User addOrModifyEmployee(User employee) {
         return em.merge(employee);
     }
+    
+    public void deleteUser(Long id) {
+        em.remove(getUser(id));
+    }
 }
